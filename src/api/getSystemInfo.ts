@@ -1,6 +1,5 @@
-import { _afterPluginsLoaded } from '../helpers/_afterPluginsLoaded';
 import { _extractMeaningfulErrorMessage } from '../helpers/_extractMeaningfulErrorMessage';
-import { __cadesAsyncToken__, __createCadesPluginObject__, _generateCadesFn } from '../helpers/_generateCadesFn';
+import { createObject } from './createObject';
 
 export interface SystemInfo {
   cadesVersion: string;
@@ -12,37 +11,41 @@ export interface SystemInfo {
  *
  * @returns информацию о CSP и плагине
  */
-export const getSystemInfo = _afterPluginsLoaded(
-  (): SystemInfo => {
-    const sysInfo = {
-      cadesVersion: null,
-      cspVersion: null,
-    };
+export const getSystemInfo = (aboutCSP_CryptoPro: boolean = true): SystemInfo => {
+  const sysInfo = {
+    cadesVersion: null,
+    cspVersion: null,
+  };
 
-    return eval(
-      _generateCadesFn(function getSystemInfo(): SystemInfo {
-        let cadesAbout;
+  return window.cadesplugin.async_spawn(function* () {
+    let cadesAbout;
 
-        try {
-          cadesAbout = __cadesAsyncToken__ + __createCadesPluginObject__('CAdESCOM.About');
+    try {
+      cadesAbout = yield createObject('CAdESCOM.About');
 
-          sysInfo.cadesVersion = __cadesAsyncToken__ + cadesAbout.PluginVersion;
-          sysInfo.cspVersion = __cadesAsyncToken__ + cadesAbout.CSPVersion();
+      sysInfo.cadesVersion = yield cadesAbout.PluginVersion;
+      if (aboutCSP_CryptoPro) {
+        const PROVIDER_NAME = 'Crypto-Pro GOST R 34.10-2001 Cryptographic Service Provider';
+        // 'Crypto-Pro GOST R 34.10-2012 Cryptographic Service Provider'; // new version
+        // 'Crypto-Pro GOST 34.10-2018 Cryptographic Service Provider'; // national latest standart version
+        const PROVIDER_TYPE = 75;
+        sysInfo.cspVersion = yield cadesAbout.CSPVersion(PROVIDER_NAME, PROVIDER_TYPE);
+      } else {
+        sysInfo.cspVersion = yield cadesAbout.CSPVersion();
+      }
 
-          if (!sysInfo.cadesVersion) {
-            sysInfo.cadesVersion = __cadesAsyncToken__ + cadesAbout.Version;
-          }
+      if (!sysInfo.cadesVersion) {
+        sysInfo.cadesVersion = yield cadesAbout.Version;
+      }
 
-          sysInfo.cadesVersion = __cadesAsyncToken__ + sysInfo.cadesVersion.toString();
-          sysInfo.cspVersion = __cadesAsyncToken__ + sysInfo.cspVersion.toString();
-        } catch (error) {
-          console.error(error);
+      sysInfo.cadesVersion = yield sysInfo.cadesVersion.toString();
+      sysInfo.cspVersion = yield sysInfo.cspVersion.toString();
+    } catch (error) {
+      console.error(error);
 
-          throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при получении информации о системе');
-        }
+      throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при получении информации о системе');
+    }
 
-        return sysInfo;
-      }),
-    );
-  },
-);
+    return sysInfo;
+  });
+};

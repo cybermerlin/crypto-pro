@@ -1,0 +1,22 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "target": "es2019",
+    "outDir": "lib.esnext",
+    "declaration": true,
+    "lib": [
+      "esnext",
+      "es2020",
+      "es2019",
+      "dom"
+    ],
+    "allowJs": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
+  }
+}

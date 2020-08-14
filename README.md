@@ -40,6 +40,7 @@
 ## Зачем мне этот пакет?
 КриптоПРО ЭЦП Browser Plug-In доступен в разных браузерах в двух версиях.
 Асинхронной (в современных браузерах) и синхронной (в браузерах постарше).
+[API cadesplugin](https://cpdn.cryptopro.ru/content/cades/plugin-methods.html).
 С помощью этого пакета можно не писать реализацию под каждую версию плагина дважды.
 И вместо [этого](http://cpdn.cryptopro.ru/content/cades/plugin-samples-sign.html)
 и [этого](http://cpdn.cryptopro.ru/content/cades/plugin-samples-sign-cades-bes-async.html)
@@ -106,7 +107,7 @@ import { getUserCertificates, Certificate } from 'crypto-pro';
 
 <a name="api-cryptopro"></a>
 ### Методы объекта cryptoPro
-- [getUserCertificates](src/api/getUserCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе
+- [getUserCertificates](src/api/getCertificates.ts) - возвращает список [сертификатов](#api-certificate), доступных пользователю в системе
 - [getCertificate](src/api/getCertificate.ts) - возвращает [сертификат](#api-certificate) по отпечатку
 - [createSignature](src/api/createSignature.ts) - создает подпись данных
 - [getSystemInfo](src/api/getSystemInfo.ts) - возвращает информацию о CSP и плагине
