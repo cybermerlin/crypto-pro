@@ -25,10 +25,15 @@ export const CreateObjectAsync: any = _afterPluginsLoaded((cls: string) => windo
  * @returns {Object|undefined} .
  */
 export const createObject: any = _afterPluginsLoaded(async (cls: string) => {
+  const { cadesplugin } = window;
   let result;
 
   try {
-    result = await window.cadesplugin.CreateObjectAsync(cls);
+    if (!!cadesplugin.CreateObjectAsync) {
+      result = await cadesplugin.CreateObjectAsync(cls);
+    } else {
+      result = cadesplugin.CreateObject(cls);
+    }
   } catch (error) {
     console.error(error);
     throw new Error(_extractMeaningfulErrorMessage(error) || 'Ошибка при попытке доступа к ' + cls);

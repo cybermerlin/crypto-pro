@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("cryptoPro", [], factory);
+	else if(typeof exports === 'object')
+		exports["cryptoPro"] = factory();
+	else
+		root["cryptoPro"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -2710,9 +2719,15 @@ const CreateObjectAsync = Object(_helpers_afterPluginsLoaded__WEBPACK_IMPORTED_M
  * @returns {Object|undefined} .
  */
 const createObject = Object(_helpers_afterPluginsLoaded__WEBPACK_IMPORTED_MODULE_0__["_afterPluginsLoaded"])(async (cls) => {
+    const { cadesplugin } = window;
     let result;
     try {
-        result = await window.cadesplugin.CreateObjectAsync(cls);
+        if (!!cadesplugin.CreateObjectAsync) {
+            result = await cadesplugin.CreateObjectAsync(cls);
+        }
+        else {
+            result = cadesplugin.CreateObject(cls);
+        }
     }
     catch (error) {
         console.error(error);
@@ -5342,4 +5357,5 @@ const _parseCertInfo = (tagsTranslations, rawInfo) => {
 /***/ })
 
 /******/ });
+});
 //# sourceMappingURL=crypto-pro.js.map

@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("cryptoPro", [], factory);
+	else if(typeof exports === 'object')
+		exports["cryptoPro"] = factory();
+	else
+		root["cryptoPro"] = factory();
+})(window, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -2917,20 +2926,28 @@ exports.CreateObjectAsync = _afterPluginsLoaded_1._afterPluginsLoaded(function (
  * @returns {Object|undefined} .
  */
 exports.createObject = _afterPluginsLoaded_1._afterPluginsLoaded(function (cls) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, error_1;
+    var cadesplugin, result, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, window.cadesplugin.CreateObjectAsync(cls)];
+                cadesplugin = window.cadesplugin;
+                _a.label = 1;
             case 1:
-                result = _a.sent();
-                return [3 /*break*/, 3];
+                _a.trys.push([1, 5, , 6]);
+                if (!!!cadesplugin.CreateObjectAsync) return [3 /*break*/, 3];
+                return [4 /*yield*/, cadesplugin.CreateObjectAsync(cls)];
             case 2:
+                result = _a.sent();
+                return [3 /*break*/, 4];
+            case 3:
+                result = cadesplugin.CreateObject(cls);
+                _a.label = 4;
+            case 4: return [3 /*break*/, 6];
+            case 5:
                 error_1 = _a.sent();
                 console.error(error_1);
                 throw new Error(_extractMeaningfulErrorMessage_1._extractMeaningfulErrorMessage(error_1) || 'Ошибка при попытке доступа к ' + cls);
-            case 3: return [2 /*return*/, result];
+            case 6: return [2 /*return*/, result];
         }
     });
 }); });
@@ -5074,4 +5091,5 @@ exports._parseCertInfo = function (tagsTranslations, rawInfo) {
 /***/ })
 
 /******/ });
+});
 //# sourceMappingURL=crypto-pro.js.map
