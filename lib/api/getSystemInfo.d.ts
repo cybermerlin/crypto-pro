@@ -7,4 +7,4 @@ export interface SystemInfo {
  *
  * @returns информацию о CSP и плагине
  */
-export declare const getSystemInfo: () => Promise<SystemInfo>;
+export declare const getSystemInfo: (aboutCSP_CryptoPro?: boolean) => SystemInfo;

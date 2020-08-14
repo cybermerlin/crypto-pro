@@ -11,7 +11,7 @@ export const _isSupportedCadesVersion = (version: string): boolean => {
     return false;
   }
 
-  if (Number(major) === 2 && Number(patch) < 12438) {
+  if (Number(major) === 2 && Number(minor) === 0 && Number(patch) < 13292) {
     return false;
   }
 

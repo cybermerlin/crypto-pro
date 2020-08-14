@@ -2,7 +2,7 @@ import { _isSupportedCadesVersion } from './_isSupportedCadesVersion';
 
 describe('_isSupportedCadesVersion', () => {
   test('returns true for supported versions', () => {
-    expect(_isSupportedCadesVersion('2.0.12438')).toBe(true);
+    expect(_isSupportedCadesVersion('2.0.13292')).toBe(true);
     expect(_isSupportedCadesVersion('9.9.0')).toBe(true);
   });
 
