@@ -23,7 +23,7 @@
     "build:uncompressed:esnext": "cross-env TS_CONFIG=tsconfig-esnext.json webpack",
     "build:definition-header:esnext": "cross-env TS_CONFIG=tsconfig-esnext.json node definition-header.js",
     "build:esnext": "npm run build:uncompressed:esnext && npm run build:definition-header:esnext",
-    "build": "npm run clean && npm run build:es5 && npm run build:esm",
+    "build": "npm run clean && npm run build:es5 && npm run build:esm && npm run build:esnext",
     "package:clean": "cross-env-shell rimraf $npm_package_name-$npm_package_version.tgz",
     "package:uncompress": "cross-env-shell tar xopf $npm_package_name-$npm_package_version.tgz",
     "package": "npm run build && npm pack && npm run package:uncompress && npm run package:clean",
